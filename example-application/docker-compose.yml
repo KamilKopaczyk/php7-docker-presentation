@@ -1,0 +1,30 @@
+application:
+    image: iteraptor/symfony_app
+    volumes:
+        - ./:/var/www
+    tty: true
+
+
+fpm:
+#    image: php:5.6-fpm
+#    image: php:7.0-fpm
+    image: diegomarangoni/hhvm:fastcgi
+    working_dir: /var/www
+    expose:
+        - "9000"
+    volumes_from:
+        - application
+
+
+nginx:
+    image: nginx
+    ports:
+        - "8999:80"
+    links:
+        - fpm
+    volumes_from:
+        - application
+    volumes:
+        - ./config:/etc/nginx/conf.d
+    environment:
+        VIRTUAL_HOST: php7szczecin.docker

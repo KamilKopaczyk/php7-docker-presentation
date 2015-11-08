@@ -1,0 +1,2 @@
+fpm:
+    image: diegomarangoni/hhvm:fastcgi

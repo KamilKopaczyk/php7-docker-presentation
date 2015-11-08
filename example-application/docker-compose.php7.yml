@@ -1,0 +1,2 @@
+fpm:
+    image: php:7.0-fpm

@@ -1,0 +1,18 @@
+/* Ensure certain elements are never larger than the slide itself */
+.reveal img, .reveal video, .reveal iframe {
+    max-width: 95%;
+    max-height: 500px; }
+
+
+.img-center, .reveal section .img-center {
+    display: block;
+    margin: 0 auto;
+}
+
+.reveal h1 {
+    margin-bottom: 35px;
+}
+
+.reveal pre code {
+    max-height: 800px;
+}

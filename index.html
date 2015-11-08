@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js – The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/theme/custom.css" id="custom-theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>Is your business ready for PHP7?</h1>
+
+            <h3>Find out with <span style="color: #2CBAEB">Docker</span>! </h3>
+
+            <p>
+                <small>Kamil Kopaczyk</small>
+            </p>
+        </section>
+
+        <section>
+            <h1>Intro</h1>
+
+            <div class="fragment">
+                <p>PHP7 hype</p>
+                <img src="img/stewie_joy.gif">
+            </div>
+
+            <aside class="notes">
+                PHP 7 hype
+            </aside>
+        </section>
+
+        <section>
+            <section>
+                <h1>The problem</h1>
+
+                <h3>Will it work with my application?</h3>
+
+                <aside class="notes">
+                    Jest sie czego bac
+                    What we'll have to face
+                </aside>
+            </section>
+
+            <section>
+                <h1>Testing the whole thing</h1>
+
+                <aside class="notes">
+                    no time/resources to click through OR
+                    no automated tests to test it fast - we can't overcome that
+                </aside>
+            </section>
+
+            <section>
+                <h1>Environment</h1>
+
+                <p>Where and how</p>
+
+                <aside class="notes">
+                    upgrade environment OR
+                    create separate machine and test there
+                    no time/resources to setup separate machine/environment
+                </aside>
+            </section>
+
+            <section>
+                <h1>Application</h1>
+
+                <p>Legacy code</p>
+
+                <p>Spaghetti code</p>
+
+                <p>Application size</p>
+
+                <p>Server settings</p>
+
+                <aside class="notes">
+                    who wants to go through all the spaghetti code and fix/revamp it
+                </aside>
+            </section>
+
+            <section>
+                <h1>Dependencies</h1>
+
+                <img class="img-center" src="img/dependencytree.jpg">
+
+                <aside class="notes">
+                    the ones without tests and semantic versioning
+                    legacy/"unknown" - niewiadomo jak napisane
+                </aside>
+            </section>
+
+            <section>
+                <h1>Methodology</h1>
+
+                <img src="img/paperclip.jpg">
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>The solution</h1>
+
+                <img src="img/findx.jpg">
+            </section>
+
+            <section>
+                <h1>Virtualization</h1>
+
+                <img class="fragment" src="img/drillpress.jpg">
+            </section>
+
+            <section>
+                <h1>Docker</h1>
+
+                <img class="img-center" src="img/whale-steroids.png">
+            </section>
+
+            <section>
+                <h1>Easy to set up</h1>
+
+                <p>
+                    Docker Toolbox:
+                </p>
+                <ul>
+                    <li>Docker Client</li>
+                    <li>Docker Machine</li>
+                    <li>Docker Compose</li>
+                    <li>Docker Kitematic</li>
+                    <li>VirtualBox</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>Disposable</h1>
+
+                <aside class="notes">
+                    even if it fails on other version, you lost only fraction of your time
+                </aside>
+            </section>
+
+            <section>
+                <h1>Resilient</h1>
+
+                <h3>Easy to switch environment</h3>
+
+                <ul>
+                    <li>apache/nginx</li>
+                    <li>php5/php7/hack</li>
+                    <li>anything?</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Theory</h1>
+
+                <h2>What do we need:</h2>
+                <ul>
+                    <li class="fragment">docker environment</li>
+                    <li class="fragment">source code + php + nginx</li>
+                </ul>
+
+                <aside class="notes">
+                    Who used Docker before?
+                    Who is familiar with docker-compose?
+                </aside>
+            </section>
+
+            <section>
+                <h1>Prerequisites</h1>
+
+                <ul>
+                    <li>docker engine</li>
+                    <li>docker client</li>
+                    <li>docker-compose</li>
+                </ul>
+            </section>
+
+            <section>
+                <img src="img/docker_containers.png">
+            </section>
+
+            <section>
+                <h1>Docker Compose</h1>
+
+                <img src="img/clock.jpg">
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                ```
+                docker run -p "80" --link some_fpm_container \
+                    --volumes-from some_data_container \
+                    -v ./config:/etc/nginx/conf.d \
+                    -e VIRTUAL_HOST=php7szczecin.docker nginx
+                ```
+
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ```yaml
+# docker-compose.yml
+application:
+    image: iteraptor/symfony_app
+    volumes:
+        - ./:/var/www
+    tty: true
+
+fpm:
+    image: php:5.6-fpm
+    working_dir: /var/www
+    expose:
+        - "9000"
+    volumes_from:
+        - application
+
+nginx:
+    image: nginx
+    ports:
+        - "80"
+    links:
+        - fpm
+    volumes_from:
+        - application
+    volumes:
+        - ./config:/etc/nginx/conf.d
+    environment:
+        VIRTUAL_HOST: php7szczecin.docker
+                    ```
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ```
+# docker-compose.php7.yml
+fpm:
+    image: php:7.0-fpm
+                    ```
+                </script>
+            </section>
+        </section>
+
+        <section>
+            <h1>Demo time!</h1>
+
+            <img src="img/demotime.jpg">
+        </section>
+
+        <section>
+            <section>
+                <h1>To sum things up</h1>
+            </section>
+
+            <section>
+                <h1>It was fast...</h1>
+            </section>
+
+            <section>
+                <h1>...cheap...</h1>
+
+                <img src="img/hajs.jpg">
+            </section>
+
+            <section>
+                <h1>...we're one step closer...</h1>
+
+                CI, testing, staging, prod etc.
+            </section>
+
+            <section>
+                <h1>...but there are some caveats</h1>
+            </section>
+        </section>
+
+        <section>
+            http://www.nkode.io/2014/08/24/valuable-docker-links.html
+        </section>
+        <section>
+            <h1>Thank you</h1>
+        </section>
+
+        <section>
+            <img class="img-center" src="img/questions.jpg">
+        </section>
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'plugin/zoom-js/zoom.js', async: true},
+            {src: 'plugin/notes/notes.js', async: true}
+        ]
+    });
+
+</script>
+
+</body>
+</html>
